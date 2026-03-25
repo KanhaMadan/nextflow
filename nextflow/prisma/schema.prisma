@@ -1,0 +1,81 @@
+// prisma/schema.prisma
+// DATABASE: Neon PostgreSQL
+// Run: npx prisma db push  (to sync schema)
+// Run: npx prisma generate (to generate client)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Workflow {
+  id          String   @id @default(cuid())
+  userId      String   // Clerk user ID
+  name        String   @default("Untitled Workflow")
+  description String?
+  nodes       Json     // ReactFlow nodes array
+  edges       Json     // ReactFlow edges array
+  viewport    Json?    // ReactFlow viewport state
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  runs WorkflowRun[]
+
+  @@index([userId])
+}
+
+model WorkflowRun {
+  id          String        @id @default(cuid())
+  workflowId  String
+  userId      String
+  scope       RunScope      @default(FULL)
+  status      RunStatus     @default(RUNNING)
+  startedAt   DateTime      @default(now())
+  completedAt DateTime?
+  duration    Int?          // milliseconds
+  nodeCount   Int           @default(0)
+  errorMessage String?
+
+  workflow    Workflow      @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  nodeRuns    NodeRun[]
+
+  @@index([userId])
+  @@index([workflowId])
+}
+
+model NodeRun {
+  id            String      @id @default(cuid())
+  workflowRunId String
+  nodeId        String      // ReactFlow node ID
+  nodeType      String      // text, llm, image, video, crop, extract
+  nodeLabel     String?
+  status        RunStatus   @default(RUNNING)
+  inputs        Json?       // inputs used
+  outputs       Json?       // outputs generated
+  error         String?
+  startedAt     DateTime    @default(now())
+  completedAt   DateTime?
+  duration      Int?        // milliseconds
+  triggerRunId  String?     // Trigger.dev run ID
+
+  workflowRun   WorkflowRun @relation(fields: [workflowRunId], references: [id], onDelete: Cascade)
+
+  @@index([workflowRunId])
+}
+
+enum RunScope {
+  FULL
+  PARTIAL
+  SINGLE
+}
+
+enum RunStatus {
+  RUNNING
+  SUCCESS
+  FAILED
+  PARTIAL
+}
