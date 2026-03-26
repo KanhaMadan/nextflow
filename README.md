@@ -25,7 +25,7 @@
 
 <br/>
 
-![NextFlow-Guide Video](https://drive.google.com/file/d/19esQBknSrr1jNEfvtrevhKCz3qy_diY2/view?usp=drive_link)
+### ⚡ Video Guide [NextFlow-Guide Video](https://drive.google.com/file/d/19esQBknSrr1jNEfvtrevhKCz3qy_diY2/view?usp=drive_link)
 
 </div>
 
