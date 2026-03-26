@@ -419,54 +419,6 @@ nextflow/
         └── index.ts              # All TypeScript type definitions
 ```
 
----
-
-## 🌐 Deployment
-
-### Deploy to Vercel
-
-```bash
-# 1. Push to GitHub
-git init
-git add .
-git commit -m "initial commit"
-git remote add origin https://github.com/yourusername/nextflow.git
-git push -u origin main
-
-# 2. Import on Vercel
-# Go to vercel.com → Add New Project → Import your repo
-# Add ALL environment variables from .env.local
-# Click Deploy
-
-# 3. Deploy Trigger.dev tasks to cloud
-npx trigger.dev@latest deploy
-```
-
-### Post-Deployment Checklist
-
-- [ ] All environment variables added in Vercel dashboard
-- [ ] `NEXT_PUBLIC_APP_URL` updated to your Vercel URL
-- [ ] Clerk domain configured with your Vercel URL
-- [ ] Trigger.dev tasks deployed with `npx trigger.dev@latest deploy`
-- [ ] Database accessible from Vercel (Neon allows all connections by default)
-
----
-
-## 🆘 Troubleshooting
-
-| Error | Cause | Fix |
-|---|---|---|
-| `DATABASE_URL not found` | Prisma needs `.env` not `.env.local` | Run `copy .env.local .env` |
-| `Cannot find module` | Packages not installed | Run `npm install` |
-| `Clerk: publishable key not found` | Missing env variable | Check `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` in `.env.local` |
-| `LLM node stuck on running` | Trigger.dev worker not running | Run `npx trigger.dev@latest dev` in Terminal 1 |
-| `Upload fails` | Transloadit keys wrong | Check `TRANSLOADIT_AUTH_KEY` and `TRANSLOADIT_AUTH_SECRET` |
-| `Port 3000 in use` | App already running | Run `npx kill-port 3000` |
-| `404 on Vercel` | Clerk domain not configured | Add Vercel URL in Clerk → Configure → Domains |
-| `maxDuration missing` | Trigger.dev SDK version mismatch | Add `maxDuration: 300` to `trigger.config.ts` |
-
----
-
 ## 📜 Available Scripts
 
 ```bash
