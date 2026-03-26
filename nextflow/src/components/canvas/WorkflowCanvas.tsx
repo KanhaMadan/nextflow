@@ -105,6 +105,7 @@ function Canvas() {
     <div
       ref={reactFlowWrapper}
       className="flex-1 h-full"
+      style={{ width: "100%", height: "100%" }}
       onDrop={onDrop}
       onDragOver={onDragOver}
     >
@@ -116,11 +117,12 @@ function Canvas() {
         onConnect={onConnect}
         nodeTypes={nodeTypes}
         fitView
-        fitViewOptions={{ padding: 0.15 }}
+        nodesDraggable={true}
+        nodesConnectable={true}
+        elementsSelectable={true}
+        panOnDrag={true}
+        zoomOnScroll={true}
         deleteKeyCode={["Delete", "Backspace"]}
-        selectionMode={SelectionMode.Partial}
-        selectionOnDrag
-        panOnDrag={[1, 2]}
         minZoom={0.2}
         maxZoom={2}
         defaultEdgeOptions={{

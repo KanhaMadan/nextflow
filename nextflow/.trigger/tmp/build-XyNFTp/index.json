@@ -1,0 +1,35 @@
+{
+  "configPath": "C:\\Users\\Kanha\\Downloads\\nextflow\\nextflow\\.trigger\\tmp\\build-XyNFTp\\Downloads\\nextflow\\nextflow\\trigger.config.mjs",
+  "customConditions": [
+  ],
+  "queues": [
+  ],
+  "runtime": "node",
+  "runtimeVersion": "24.13.1",
+  "tasks": [
+    {
+      "entryPoint": "C:\\Users\\Kanha\\Downloads\\nextflow\\nextflow\\.trigger\\tmp\\build-XyNFTp\\Downloads\\nextflow\\nextflow\\trigger\\crop-image-task.mjs",
+      "filePath": "trigger/crop-image-task.ts",
+      "id": "crop-image-task",
+      "maxDuration": 180
+    },
+    {
+      "entryPoint": "C:\\Users\\Kanha\\Downloads\\nextflow\\nextflow\\.trigger\\tmp\\build-XyNFTp\\Downloads\\nextflow\\nextflow\\trigger\\extract-frame-task.mjs",
+      "filePath": "trigger/extract-frame-task.ts",
+      "id": "extract-frame-task",
+      "maxDuration": 180
+    },
+    {
+      "entryPoint": "C:\\Users\\Kanha\\Downloads\\nextflow\\nextflow\\.trigger\\tmp\\build-XyNFTp\\Downloads\\nextflow\\nextflow\\trigger\\llm-task.mjs",
+      "filePath": "trigger/llm-task.ts",
+      "id": "llm-task",
+      "maxDuration": 120
+    }
+  ],
+  "timings": {
+    "trigger/crop-image-task.ts": 3.894200000000069,
+    "trigger/extract-frame-task.ts": 2.8465999999999667,
+    "trigger/llm-task.ts": 4.669899999999984
+  },
+  "workerEntryPoint": "C:\\Users\\Kanha\\Downloads\\nextflow\\nextflow\\.trigger\\tmp\\build-XyNFTp\\AppData\\Local\\npm-cache\\_npx\\f51a09bd0abf5f10\\node_modules\\trigger.dev\\dist\\esm\\entryPoints\\dev-run-worker.mjs"
+}
