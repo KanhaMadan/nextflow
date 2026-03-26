@@ -1,4 +1,3 @@
-// src/app/api/execute/route.ts
 // Routes execution to the correct Trigger.dev task based on node type
 
 import { auth } from "@clerk/nextjs/server";
@@ -60,7 +59,7 @@ export async function POST(req: NextRequest) {
         if (handle.ok) {
           output = handle.output.result;
         } else {
-          throw new Error(handle.error ?? "LLM task failed");
+          throw new Error(typeof handle.error === "string" ? handle.error : "LLM task failed");
         }
         break;
       }
@@ -81,7 +80,7 @@ export async function POST(req: NextRequest) {
         if (handle.ok) {
           output = handle.output.croppedImageUrl;
         } else {
-          throw new Error(handle.error ?? "Crop task failed");
+          throw new Error(typeof handle.error === "string" ? handle.error : "Crop task failed");
         }
         break;
       }
@@ -101,7 +100,7 @@ export async function POST(req: NextRequest) {
         if (handle.ok) {
           output = handle.output.frameUrl;
         } else {
-          throw new Error(handle.error ?? "Extract frame task failed");
+          throw new Error(typeof handle.error === "string" ? handle.error : "Extract frame task failed");
         }
         break;
       }

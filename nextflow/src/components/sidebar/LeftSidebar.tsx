@@ -1,4 +1,3 @@
-// src/components/sidebar/LeftSidebar.tsx
 "use client";
 
 import { useState, useCallback } from "react";
@@ -124,7 +123,7 @@ export default function LeftSidebar() {
         id: `${config.type}-${Date.now()}`,
         type: config.type,
         position,
-        data: config.defaultData as FlowNode["data"],
+        data: config.defaultData as unknown as FlowNode["data"],
       };
 
       addNode(newNode);

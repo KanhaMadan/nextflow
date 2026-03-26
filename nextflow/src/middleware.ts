@@ -1,4 +1,3 @@
-// src/middleware.ts
 // Protects all /workflow routes — requires sign in
 
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";

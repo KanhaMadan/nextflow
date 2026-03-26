@@ -1,7 +1,4 @@
-// src/app/api/upload/route.ts
 // Handles file uploads via Transloadit
-// TRANSLOADIT_AUTH_KEY = {ENTER YOUR TRANSLOADIT AUTH KEY}
-// TRANSLOADIT_AUTH_SECRET = {ENTER YOUR TRANSLOADIT AUTH SECRET}
 
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";

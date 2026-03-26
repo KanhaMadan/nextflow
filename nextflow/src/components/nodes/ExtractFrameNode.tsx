@@ -1,4 +1,3 @@
-// src/components/nodes/ExtractFrameNode.tsx
 "use client";
 
 import { memo, useCallback } from "react";

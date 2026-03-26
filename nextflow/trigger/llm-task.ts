@@ -1,23 +1,18 @@
 // trigger/llm-task.ts
 // Trigger.dev task: calls Google Gemini API for LLM inference
-//
-// REQUIRED ENV VARIABLE:
-//   GEMINI_API_KEY = {ENTER YOUR GEMINI API KEY}
-//   Get it from: https://aistudio.google.com → Get API Key
-//
-// This task is triggered from: src/app/api/execute/route.ts
 
 import { task } from "@trigger.dev/sdk/v3";
 import { GoogleGenerativeAI, Part } from "@google/generative-ai";
 
-// GEMINI_API_KEY = {ENTER YOUR GEMINI API KEY} — set in .env.local
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
 export interface LLMTaskPayload {
   model: string;
   systemPrompt?: string;
   userMessage: string;
-  images?: string[]; // Array of image URLs for vision support
+
+  // Array of image URLs for vision support
+  images?: string[]; 
 }
 
 export interface LLMTaskOutput {
@@ -39,10 +34,10 @@ export const llmTask = task({
         : {}),
     });
 
-    // Build content parts
+    // Building content parts
     const parts: Part[] = [];
 
-    // Add images first (vision support — multimodal)
+    // Adding images first (vision support — multimodal)
     for (const imageUrl of images) {
       try {
         // Fetch the image and convert to base64 for Gemini

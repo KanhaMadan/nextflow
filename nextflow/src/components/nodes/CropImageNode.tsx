@@ -1,4 +1,3 @@
-// src/components/nodes/CropImageNode.tsx
 "use client";
 
 import { memo, useCallback } from "react";

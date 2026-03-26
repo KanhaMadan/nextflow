@@ -119,7 +119,6 @@ export const parentTask = task({
     // Quick unwrap (throws on error)
     const output = await childTask.triggerAndWait({ data: "value" }).unwrap();
 
-    // Batch trigger and wait
     const results = await childTask.batchTriggerAndWait([
       { payload: { data: "item1" } },
       { payload: { data: "item2" } },
@@ -225,10 +224,9 @@ export const processUser = task({
 // Trigger with tags
 await processUser.trigger(
   { userId: "123", orgId: "abc" },
-  { tags: ["priority", "user_123", "org_abc"] } // Max 10 tags per run
+  { tags: ["priority", "user_123", "org_abc"] } 
 );
 
-// Subscribe to tagged runs
 for await (const run of runs.subscribeToRunsWithTag("user_123")) {
   console.log(`User task ${run.id}: ${run.status}`);
 }

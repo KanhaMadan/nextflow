@@ -1,4 +1,3 @@
-// src/components/canvas/TopBar.tsx
 "use client";
 
 import { useState, useCallback } from "react";

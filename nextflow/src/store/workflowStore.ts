@@ -1,8 +1,6 @@
-// src/store/workflowStore.ts
 // Zustand store — central state for the entire workflow canvas
 
 import { create } from "zustand";
-import { temporal } from "zustand/middleware";
 import {
   addEdge,
   applyNodeChanges,
@@ -275,8 +273,10 @@ export const useWorkflowStore = create<WorkflowStore>()((set, get) => ({
   updateNodeData: (nodeId, data) =>
     set((state) => ({
       nodes: state.nodes.map((n) =>
-        n.id === nodeId ? { ...n, data: { ...n.data, ...data } } : n
-      ),
+        n.id === nodeId
+          ? ({ ...n, data: { ...n.data, ...data } } as unknown as FlowNode)
+          : n
+      ) as FlowNode[],
     })),
 
   setNodeRunning: (nodeId, running) =>

@@ -1,4 +1,3 @@
-// src/components/nodes/TextNode.tsx
 "use client";
 
 import { memo, useCallback } from "react";

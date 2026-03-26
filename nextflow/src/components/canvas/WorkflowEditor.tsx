@@ -1,4 +1,3 @@
-// src/components/canvas/WorkflowEditor.tsx
 "use client";
 
 import { ReactFlowProvider } from "reactflow";

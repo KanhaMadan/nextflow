@@ -1,4 +1,3 @@
-// src/app/workflow/page.tsx
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import WorkflowEditor from "@/components/canvas/WorkflowEditor";

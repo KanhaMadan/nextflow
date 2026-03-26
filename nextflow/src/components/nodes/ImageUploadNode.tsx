@@ -1,4 +1,3 @@
-// src/components/nodes/ImageUploadNode.tsx
 "use client";
 
 import { memo, useCallback, useRef } from "react";
@@ -8,7 +7,7 @@ import { useWorkflowStore } from "@/store/workflowStore";
 import { ImageIcon, Upload, Trash2, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-// TRANSLOADIT_AUTH_KEY = {ENTER YOUR TRANSLOADIT AUTH KEY} — from .env.local
+
 const TRANSLOADIT_AUTH_KEY = process.env.NEXT_PUBLIC_TRANSLOADIT_AUTH_KEY;
 
 const ImageUploadNode = memo(

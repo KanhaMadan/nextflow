@@ -1,4 +1,3 @@
-// src/components/canvas/WorkflowCanvas.tsx
 "use client";
 
 import { useCallback, useRef } from "react";
@@ -11,7 +10,6 @@ import ReactFlow, {
   useReactFlow,
   SelectionMode,
 } from "reactflow";
-import "reactflow/dist/style.css";
 
 import { useWorkflowStore } from "@/store/workflowStore";
 import { FlowNode } from "@/types";
@@ -81,7 +79,7 @@ function Canvas() {
         id: `${nodeType}-${Date.now()}`,
         type: nodeType,
         position,
-        data: defaultData as FlowNode["data"],
+        data: defaultData as unknown as FlowNode["data"],
       };
 
       addNode(newNode);

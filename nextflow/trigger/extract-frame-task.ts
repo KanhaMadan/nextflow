@@ -1,10 +1,6 @@
 // trigger/extract-frame-task.ts
 // Trigger.dev task: extracts a single frame from a video using FFmpeg
-//
-// REQUIRED ENV VARIABLES:
-//   TRANSLOADIT_AUTH_KEY    = {ENTER YOUR TRANSLOADIT AUTH KEY}
-//   TRANSLOADIT_AUTH_SECRET = {ENTER YOUR TRANSLOADIT AUTH SECRET}
-//
+
 // Supports timestamp as:
 //   - A number in seconds (e.g., "5" → 5 seconds in)
 //   - A percentage string (e.g., "50%" → middle of video)
@@ -18,7 +14,7 @@ import crypto from "crypto";
 
 export interface ExtractFramePayload {
   videoUrl: string;
-  timestamp: string; // e.g. "5" (seconds) or "50%" (percentage)
+  timestamp: string; 
 }
 
 export interface ExtractFrameOutput {
@@ -30,8 +26,6 @@ async function uploadToTransloadit(
   filePath: string,
   mimeType = "image/jpeg"
 ): Promise<string> {
-  // TRANSLOADIT_AUTH_KEY = {ENTER YOUR TRANSLOADIT AUTH KEY}
-  // TRANSLOADIT_AUTH_SECRET = {ENTER YOUR TRANSLOADIT AUTH SECRET}
   const authKey = process.env.TRANSLOADIT_AUTH_KEY!;
   const authSecret = process.env.TRANSLOADIT_AUTH_SECRET!;
 
@@ -83,7 +77,6 @@ async function uploadToTransloadit(
   throw new Error("Transloadit assembly timed out");
 }
 
-// Parse timestamp: handles "50%" or numeric seconds like "5" or "5.5"
 function parseTimestamp(timestamp: string, durationSeconds: number): number {
   const trimmed = timestamp.trim();
 
@@ -110,13 +103,13 @@ export const extractFrameTask = task({
     const outputFile = path.join(tmpDir, `frame-${Date.now()}.jpg`);
 
     try {
-      // 1. Download the video
+      // Download the video
       const vidRes = await fetch(videoUrl);
       if (!vidRes.ok) throw new Error(`Failed to download video: ${vidRes.status}`);
       const buffer = await vidRes.arrayBuffer();
       fs.writeFileSync(inputFile, Buffer.from(buffer));
 
-      // 2. Get video duration with FFprobe
+      // Get video duration with FFprobe
       const probeOutput = execSync(
         `ffprobe -v quiet -print_format json -show_streams "${inputFile}"`
       ).toString();
@@ -130,10 +123,10 @@ export const extractFrameTask = task({
       const durationSeconds = parseFloat(videoStream.duration ?? "0");
       if (durationSeconds <= 0) throw new Error("Could not determine video duration");
 
-      // 3. Resolve timestamp
+      // Resolve timestamp
       const seekSeconds = parseTimestamp(timestamp ?? "0", durationSeconds);
 
-      // 4. Extract frame at timestamp
+      // Extract frame at timestamp
       execSync(
         `ffmpeg -ss ${seekSeconds} -i "${inputFile}" -frames:v 1 -q:v 2 -y "${outputFile}"`
       );
@@ -142,7 +135,7 @@ export const extractFrameTask = task({
         throw new Error("FFmpeg did not produce output frame");
       }
 
-      // 5. Upload extracted frame to Transloadit
+      // Upload extracted frame to Transloadit
       const frameUrl = await uploadToTransloadit(outputFile, "image/jpeg");
 
       return { frameUrl };

@@ -1,10 +1,6 @@
 // trigger/crop-image-task.ts
 // Trigger.dev task: crops an image using FFmpeg
-//
-// REQUIRED ENV VARIABLES:
-//   TRANSLOADIT_AUTH_KEY    = {ENTER YOUR TRANSLOADIT AUTH KEY}
-//   TRANSLOADIT_AUTH_SECRET = {ENTER YOUR TRANSLOADIT AUTH SECRET}
-//
+
 // FFmpeg is available natively in Trigger.dev cloud runtime
 // Output image is re-uploaded via Transloadit and returned as a URL
 
@@ -29,8 +25,6 @@ export interface CropImageOutput {
 
 // Helper: upload a local file to Transloadit and return CDN URL
 async function uploadToTransloadit(filePath: string): Promise<string> {
-  // TRANSLOADIT_AUTH_KEY = {ENTER YOUR TRANSLOADIT AUTH KEY}
-  // TRANSLOADIT_AUTH_SECRET = {ENTER YOUR TRANSLOADIT AUTH SECRET}
   const authKey = process.env.TRANSLOADIT_AUTH_KEY!;
   const authSecret = process.env.TRANSLOADIT_AUTH_SECRET!;
 
@@ -95,13 +89,13 @@ export const cropImageTask = task({
     const outputFile = path.join(tmpDir, `cropped-${Date.now()}.jpg`);
 
     try {
-      // 1. Download the source image
+      // Download the source image
       const imgRes = await fetch(imageUrl);
       if (!imgRes.ok) throw new Error(`Failed to download image: ${imgRes.status}`);
       const buffer = await imgRes.arrayBuffer();
       fs.writeFileSync(inputFile, Buffer.from(buffer));
 
-      // 2. Get image dimensions using FFprobe
+      // Get image dimensions using FFprobe
       const probeOutput = execSync(
         `ffprobe -v quiet -print_format json -show_streams "${inputFile}"`
       ).toString();
@@ -115,7 +109,7 @@ export const cropImageTask = task({
       const imgWidth: number = videoStream.width;
       const imgHeight: number = videoStream.height;
 
-      // 3. Calculate pixel crop values from percentages
+      // Calculate pixel crop values from percentages
       const cropX = Math.round((xPercent / 100) * imgWidth);
       const cropY = Math.round((yPercent / 100) * imgHeight);
       const cropW = Math.round((widthPercent / 100) * imgWidth);
@@ -125,12 +119,12 @@ export const cropImageTask = task({
       const safeW = Math.max(1, Math.min(cropW, imgWidth - cropX));
       const safeH = Math.max(1, Math.min(cropH, imgHeight - cropY));
 
-      // 4. Run FFmpeg crop
+      // Run FFmpeg crop
       execSync(
         `ffmpeg -i "${inputFile}" -vf "crop=${safeW}:${safeH}:${cropX}:${cropY}" -y "${outputFile}"`
       );
 
-      // 5. Upload result to Transloadit
+      // Upload result to Transloadit
       const croppedImageUrl = await uploadToTransloadit(outputFile);
 
       return { croppedImageUrl };

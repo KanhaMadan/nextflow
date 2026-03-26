@@ -1,4 +1,3 @@
-// src/hooks/useWorkflowExecution.ts
 // Core execution engine: topological sort, parallel execution, Trigger.dev integration
 
 "use client";
@@ -59,7 +58,7 @@ function buildExecutionGroups(
 
 // ── Get output value for a node (from its data) ──────────────────────────────
 function getNodeOutput(node: FlowNode): string | null {
-  const data = node.data as Record<string, unknown>;
+  const data = node.data as unknown as Record<string, unknown>;
   if (data.output) return data.output as string;
   if (data.result) return data.result as string;
   if (data.text) return data.text as string;
@@ -101,7 +100,7 @@ export function useWorkflowExecution() {
       workflowRunId: string
     ): Promise<{ success: boolean; output?: string; error?: string; duration: number }> => {
       const start = Date.now();
-      const data = node.data as Record<string, unknown>;
+      const data = node.data as unknown as Record<string, unknown>;
 
       // Build inputs from connected upstream nodes
       const incomingEdges = edges.filter((e) => e.target === node.id);
@@ -210,7 +209,7 @@ export function useWorkflowExecution() {
           group.map(async (node) => {
             // Text nodes — no execution needed, just propagate
             if (node.type === "textNode") {
-              const text = (node.data as Record<string, unknown>).text as string;
+              const text = (node.data as unknown as Record<string, unknown>).text as string;
               setNodeOutput(node.id, text ?? "");
               return { nodeId: node.id, success: true };
             }

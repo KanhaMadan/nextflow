@@ -1,9 +1,8 @@
-// src/types/index.ts
 // Central type definitions for NextFlow
 
 import { Node, Edge } from "reactflow";
 
-// ─── Node Data Types ──────────────────────────────────────────────────────────
+// ─── Nodes
 
 export type NodeType =
   | "textNode"
@@ -76,7 +75,7 @@ export type AnyNodeData =
 export type FlowNode = Node<AnyNodeData>;
 export type FlowEdge = Edge;
 
-// ─── Workflow Types ───────────────────────────────────────────────────────────
+// ─── Workflows
 
 export interface WorkflowState {
   id?: string;
@@ -85,7 +84,7 @@ export interface WorkflowState {
   edges: FlowEdge[];
 }
 
-// ─── History Types ────────────────────────────────────────────────────────────
+// ─── Histories
 
 export type RunStatus = "RUNNING" | "SUCCESS" | "FAILED" | "PARTIAL";
 export type RunScope = "FULL" | "PARTIAL" | "SINGLE";
@@ -118,7 +117,7 @@ export interface WorkflowRunEntry {
   nodeRuns?: NodeRunEntry[];
 }
 
-// ─── Execution Types ──────────────────────────────────────────────────────────
+// ─── Executions
 
 export interface ExecutePayload {
   workflowId: string;
@@ -136,7 +135,7 @@ export interface NodeExecutionResult {
   duration: number;
 }
 
-// ─── Sidebar Node Config ──────────────────────────────────────────────────────
+// ─── Sidebar Node Configs
 
 export interface SidebarNodeConfig {
   type: NodeType;
@@ -146,7 +145,7 @@ export interface SidebarNodeConfig {
   color: string;
 }
 
-// ─── Gemini Models ────────────────────────────────────────────────────────────
+// ─── Gemini Models
 
 export const GEMINI_MODELS = [
   "gemini-1.5-flash",
@@ -157,7 +156,7 @@ export const GEMINI_MODELS = [
 
 export type GeminiModel = (typeof GEMINI_MODELS)[number];
 
-// ─── API Response Types ───────────────────────────────────────────────────────
+// ─── API Responses
 
 export interface ApiResponse<T = unknown> {
   success: boolean;

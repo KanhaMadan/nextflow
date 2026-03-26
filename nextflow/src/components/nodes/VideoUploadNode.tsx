@@ -1,4 +1,3 @@
-// src/components/nodes/VideoUploadNode.tsx
 "use client";
 
 import { memo, useCallback, useRef } from "react";

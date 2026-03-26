@@ -1,4 +1,3 @@
-// src/lib/prisma.ts
 // Prisma client singleton — prevents multiple instances in dev (hot reload)
 
 import { PrismaClient } from "@prisma/client";
