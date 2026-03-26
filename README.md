@@ -25,7 +25,7 @@
 
 <br/>
 
-![NextFlow-Guide Video]([https://via.placeholder.com/900x500/0a0a0f/7c3aed?text=NextFlow+Canvas+Preview](https://drive.google.com/file/d/19esQBknSrr1jNEfvtrevhKCz3qy_diY2/view?usp=drive_link))
+![NextFlow-Guide Video](https://drive.google.com/file/d/19esQBknSrr1jNEfvtrevhKCz3qy_diY2/view?usp=drive_link)
 
 </div>
 
